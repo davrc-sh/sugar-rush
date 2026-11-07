@@ -1,0 +1,785 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Sugar Rush</title>
+
+        <style>
+            :root {
+                --crayola-brown: rgb(175, 89, 62);
+                --crayola-brown-dark: rgb(125, 39, 12);
+                --crayola-brown-light: rgb(185, 109, 82);
+                --magenta: rgb(180, 0, 180);
+                --crayola-lime: rgb(190, 230, 75);
+                --crayola-green: rgb(94, 140, 49);
+                --crayola-violet: rgb(131, 89, 163);
+            }
+
+            *,
+            *::before,
+            *::after {
+                box-sizing: border-box;
+            }
+
+            body {
+                display: flex;
+                flex-direction: column;
+                min-height: 100vh;
+
+                margin: 0;
+                color: #241b18;
+                border: 3px solid black;
+                font-family: Arial, Helvetica, sans-serif;
+            }
+
+            img {
+                user-select: none;
+            }
+
+            main {
+                display: flex;
+                flex-direction: column;
+                flex: 1;
+            }
+
+            /* HEADER */
+
+            header,
+            nav {
+                background-color: pink;
+            }
+
+            header,
+            header::before,
+            header::after {
+                box-sizing: content-box;
+            }
+
+            header {
+                display: flex;
+                justify-content: center;
+                padding: 20px;
+            }
+
+            #title {
+                display: flex;
+                align-items: center;
+                gap: 5px;
+                width: max-content;
+                padding-inline: 1rem;
+                border: 2px dashed var(--magenta);
+                border-radius: 10px;
+                background-image:
+                    linear-gradient(to bottom, pink, white),
+                    linear-gradient(to bottom, pink, pink);
+                background-clip: padding-box, border-box;
+                background-origin: padding-box, border-box;
+                box-shadow: -5px 5px 2px var(--crayola-violet);
+            }
+
+            #title > * {
+                margin: 0;
+                padding: 0;
+            }
+
+            @font-face {
+                font-family: cursive-font;
+                src: url('assets/fonts/cursive-font.woff') format('woff');
+            }
+
+            h1 {
+                font-family: cursive-font, cursive;
+                font-size: 5rem;
+                color: var(--magenta);
+                text-shadow: -2px 0px 0px var(--crayola-violet);
+            }
+
+            #icon-container {
+                width: 70px;
+                height: 100%;
+                flex-shrink: 0;
+                filter: drop-shadow(-2px 0px 0px var(--crayola-violet));
+            }
+
+            #candy-icon {
+                width: 100%;
+                height: 100%;
+                object-fit: contain;
+                filter: invert(17%) sepia(98%) saturate(6516%)
+                    hue-rotate(295deg) brightness(84%) contrast(108%);
+            }
+
+            /* NAVIGATION */
+
+            nav {
+                border-block: 2px solid var(--crayola-brown);
+                display: flex;
+                justify-content: space-evenly;
+                gap: 5px;
+                padding-block: 5px;
+            }
+
+            nav a {
+                text-align: center;
+                text-decoration: none;
+                text-transform: uppercase;
+                color: black;
+                border: 2px solid black;
+                border-radius: 15px;
+                font-size: clamp(0.2rem, 0.2rem, 1rem);
+                width: 30%;
+            }
+            
+            #hard-candy-nav {
+                background-color: var(--magenta);
+            }
+
+            #chewy-candy-nav {
+                background-color: var(--crayola-lime);
+            }
+
+            #chocolate-bars-nav {
+                background-color: var(--crayola-brown-light);
+            }
+
+            #choco-treats-nav {
+                background-color: var(--crayola-violet);
+            }
+
+            /* SECTION BACKGROUNDS */
+
+            #hard-candy {
+                background-color: pink;
+            }
+
+            #chewy-candy {
+                background-color: var(--crayola-lime);
+            }
+
+            #chocolate {
+                background-color: var(--crayola-brown-light);
+            }
+
+            /* GENERAL SECTION SPACING */
+
+            section,
+            nav,
+            footer {
+                padding-inline: 10px;
+            }
+
+            section {
+                padding-bottom: 20px;
+                scroll-margin-top: 10px;
+            }
+
+            /* PRODUCT GRIDS */
+
+            .content {
+                display: grid;
+                gap: 16px;
+                min-width: 10px;
+            }
+
+            #hard-candy .content {
+                grid-template-columns: repeat(4, minmax(0, 1fr));
+            }
+
+            #chewy-candy .content {
+                grid-template-columns: repeat(5, minmax(0, 1fr));
+            }
+
+            #chocolate .content {
+                flex: 1;
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+                gap: 12px;
+            }
+
+            /* CHOCOLATE SECTION */
+
+            #chocolate {
+                display: flex;
+                flex: 1;
+            }
+
+#chocolate-bars, #choco-treats {
+    padding-block: 20px;
+}
+            #chocolate-bars {
+                padding-right: 8px;
+                border-right: 1px solid var(--crayola-brown-dark);
+            }
+
+            #choco-treats {
+                padding-left: 8px;
+                border-left: 1px solid var(--crayola-brown-dark);
+            }
+
+            /* SECTION EYEBROWS */
+
+            .eyebrow {
+                display: flex;
+                align-items: center;
+                width: 100%;
+                margin-bottom: 16px;
+                text-align: center;
+                font-weight: bold;
+            }
+
+            .eyebrow::after {
+                content: '';
+                flex: 1;
+                margin: 10px;
+                border-bottom: 2px dashed;
+            }
+
+            #choco-eyebrows {
+                display: flex;
+                justify-content: space-evenly;
+                align-items: center;
+                gap: 10px;
+                padding-inline: 5px;
+                font-weight: bold;
+            }
+
+            #choco-eyebrows > div {
+                text-align: center;
+            }
+
+            #choco-section-title {
+                padding-inline: 5px;
+                border: 2px solid var(--crayola-brown-dark);
+                text-transform: uppercase;
+            }
+
+            #hard-candy .eyebrow {
+                border-color: var(--magenta);
+                color: var(--magenta);
+            }
+
+            #chewy-candy .eyebrow {
+                border-color: var(--crayola-green);
+                color: var(--crayola-green);
+            }
+
+            #choco-bars-title {
+                color: var(--crayola-brown);
+            }
+
+            #choco-treats-title {
+                color: var(--crayola-violet);
+            }
+
+            /* IMAGE CONTAINERS */
+
+            .image-container {
+                display: grid;
+                place-items: center;
+                min-width: 0;
+                aspect-ratio: 1 / 1;
+                overflow: hidden;
+                border-radius: 10px;
+            }
+
+            #hard-candy .image-container {
+                background-color: rgb(200, 142, 153);
+            }
+
+            #chewy-candy .image-container {
+                background-color: rgb(100, 150, 0);
+            }
+
+            #chocolate .image-container {
+                background-color: rgb(150, 50, 0);
+            }
+
+            .image-container img {
+                display: block;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                border-radius: 10px;
+                border: 2px solid black;
+            }
+
+            /* FOOTER */
+
+            footer {
+                border-top: 3px solid black;
+            }
+
+            /* RESPONSIVE LAYOUT */
+
+            @media (max-width: 700px) {
+                h1 {
+                    font-size: 2.5rem;
+                }
+
+                #icon-container {
+                    width: 50px;
+                }
+
+                nav a {
+                    font-size: 10px;
+                }
+
+                #choco-eyebrows > div {
+                    font-size: 12px;
+                }
+            }
+        </style>
+    </head>
+
+    <body>
+        <header>
+            <div id="title">
+                <h1>Sugar Rush</h1>
+
+                <div id="icon-container">
+                    <img
+                        src="assets/images/icons/candy.svg"
+                        alt="candy-icon"
+                        id="candy-icon"
+                        loading="eager"
+                    />
+                </div>
+            </div>
+        </header>
+
+        <nav>
+            <a href="#hard-candy" id="hard-candy-nav">Hard <br />Candy</a>
+            <a href="#chewy-candy" id="chewy-candy-nav">Chewy <br />Candy</a>
+            <a href="#chocolate-bars" id="chocolate-bars-nav"
+                >Chocolate <br />Bars</a
+            >
+            <a href="#choco-treats" id="choco-treats-nav">Choco <br />Treats</a>
+        </nav>
+
+        <main>
+            <!-- HARD CANDY -->
+
+            <section id="hard-candy">
+                <div class="eyebrow">Hard Candy</div>
+
+                <div class="content">
+                    <a
+                        class="image-container"
+                        href="assets/images/gallery-content/hard-candy/1.webp"
+                    >
+                        <img
+                            src="assets/images/gallery-content/hard-candy/1.webp"
+                            alt="hard-candy"
+                            width="100"
+                            height="100"
+                            loading="lazy"
+                        />
+                    </a>
+
+                    <a
+                        class="image-container"
+                        href="assets/images/gallery-content/hard-candy/2.webp"
+                    >
+                        <img
+                            src="assets/images/gallery-content/hard-candy/2.webp"
+                            alt="hard-candy"
+                            width="100"
+                            height="100"
+                            loading="lazy"
+                        />
+                    </a>
+
+                    <a
+                        class="image-container"
+                        href="assets/images/gallery-content/hard-candy/3.webp"
+                    >
+                        <img
+                            src="assets/images/gallery-content/hard-candy/3.webp"
+                            alt="hard-candy"
+                            width="100"
+                            height="100"
+                            loading="lazy"
+                        />
+                    </a>
+
+                    <a
+                        class="image-container"
+                        href="assets/images/gallery-content/hard-candy/4.webp"
+                    >
+                        <img
+                            src="assets/images/gallery-content/hard-candy/4.webp"
+                            alt="hard-candy"
+                            width="100"
+                            height="100"
+                            loading="lazy"
+                        />
+                    </a>
+
+                    <a
+                        class="image-container"
+                        href="assets/images/gallery-content/hard-candy/5.webp"
+                    >
+                        <img
+                            src="assets/images/gallery-content/hard-candy/5.webp"
+                            alt="hard-candy"
+                            width="100"
+                            height="100"
+                            loading="lazy"
+                        />
+                    </a>
+
+                    <a
+                        class="image-container"
+                        href="assets/images/gallery-content/hard-candy/6.webp"
+                    >
+                        <img
+                            src="assets/images/gallery-content/hard-candy/6.webp"
+                            alt="hard-candy"
+                            width="100"
+                            height="100"
+                            loading="lazy"
+                        />
+                    </a>
+
+                    <a
+                        class="image-container"
+                        href="assets/images/gallery-content/hard-candy/7.webp"
+                    >
+                        <img
+                            src="assets/images/gallery-content/hard-candy/7.webp"
+                            alt="hard-candy"
+                            width="100"
+                            height="100"
+                            loading="lazy"
+                        />
+                    </a>
+
+                    <a
+                        class="image-container"
+                        href="assets/images/gallery-content/hard-candy/8.webp"
+                    >
+                        <img
+                            src="assets/images/gallery-content/hard-candy/8.webp"
+                            alt="hard-candy"
+                            width="100"
+                            height="100"
+                            loading="lazy"
+                        />
+                    </a>
+                </div>
+            </section>
+
+            <!-- CHEWY CANDY -->
+
+            <section id="chewy-candy">
+                <div class="eyebrow">Chewy Candy</div>
+
+                <div class="content">
+                    <a
+                        class="image-container"
+                        href="assets/images/gallery-content/chewy-candy/1.webp"
+                    >
+                        <img
+                            src="assets/images/gallery-content/chewy-candy/1.webp"
+                            alt="chewy-candy"
+                            width="100"
+                            height="100"
+                            loading="lazy"
+                        />
+                    </a>
+
+                    <a
+                        class="image-container"
+                        href="assets/images/gallery-content/chewy-candy/2.webp"
+                    >
+                        <img
+                            src="assets/images/gallery-content/chewy-candy/2.webp"
+                            alt="chewy-candy"
+                            width="100"
+                            height="100"
+                            loading="lazy"
+                        />
+                    </a>
+
+                    <a
+                        class="image-container"
+                        href="assets/images/gallery-content/chewy-candy/3.webp"
+                    >
+                        <img
+                            src="assets/images/gallery-content/chewy-candy/3.webp"
+                            alt="chewy-candy"
+                            width="100"
+                            height="100"
+                            loading="lazy"
+                        />
+                    </a>
+
+                    <a
+                        class="image-container"
+                        href="assets/images/gallery-content/chewy-candy/4.webp"
+                    >
+                        <img
+                            src="assets/images/gallery-content/chewy-candy/4.webp"
+                            alt="chewy-candy"
+                            width="100"
+                            height="100"
+                            loading="lazy"
+                        />
+                    </a>
+
+                    <a
+                        class="image-container"
+                        href="assets/images/gallery-content/chewy-candy/5.webp"
+                    >
+                        <img
+                            src="assets/images/gallery-content/chewy-candy/5.webp"
+                            alt="chewy-candy"
+                            width="100"
+                            height="100"
+                            loading="lazy"
+                        />
+                    </a>
+
+                    <a
+                        class="image-container"
+                        href="assets/images/gallery-content/chewy-candy/6.webp"
+                    >
+                        <img
+                            src="assets/images/gallery-content/chewy-candy/6.webp"
+                            alt="chewy-candy"
+                            width="100"
+                            height="100"
+                            loading="lazy"
+                        />
+                    </a>
+
+                    <a
+                        class="image-container"
+                        href="assets/images/gallery-content/chewy-candy/7.webp"
+                    >
+                        <img
+                            src="assets/images/gallery-content/chewy-candy/7.webp"
+                            alt="chewy-candy"
+                            width="100"
+                            height="100"
+                            loading="lazy"
+                        />
+                    </a>
+
+                    <a
+                        class="image-container"
+                        href="assets/images/gallery-content/chewy-candy/8.webp"
+                    >
+                        <img
+                            src="assets/images/gallery-content/chewy-candy/8.webp"
+                            alt="chewy-candy"
+                            width="100"
+                            height="100"
+                            loading="lazy"
+                        />
+                    </a>
+
+                    <a
+                        class="image-container"
+                        href="assets/images/gallery-content/chewy-candy/9.webp"
+                    >
+                        <img
+                            src="assets/images/gallery-content/chewy-candy/9.webp"
+                            alt="chewy-candy"
+                            width="100"
+                            height="100"
+                            loading="lazy"
+                        />
+                    </a>
+
+                    <a
+                        class="image-container"
+                        href="assets/images/gallery-content/chewy-candy/10.webp"
+                    >
+                        <img
+                            src="assets/images/gallery-content/chewy-candy/10.webp"
+                            alt="chewy-candy"
+                            width="100"
+                            height="100"
+                            loading="lazy"
+                        />
+                    </a>
+                </div>
+            </section>
+
+            <!-- CHOCOLATE HEADINGS -->
+
+            <div id="choco-eyebrows">
+                <div id="choco-bars-title">Chocolate Bars</div>
+                <div id="choco-section-title">Chocolate Section</div>
+                <div id="choco-treats-title">Choco Treats</div>
+            </div>
+
+            <!-- CHOCOLATE GALLERIES -->
+
+            <div id="chocolate">
+                <section class="content" id="chocolate-bars">
+                    <a
+                        class="image-container"
+                        href="assets/images/gallery-content/chocolate-bars/1.webp"
+                    >
+                        <img
+                            src="assets/images/gallery-content/chocolate-bars/1.webp"
+                            alt="chocolate-bars"
+                            width="100"
+                            height="100"
+                            loading="lazy"
+                        />
+                    </a>
+
+                    <a
+                        class="image-container"
+                        href="assets/images/gallery-content/chocolate-bars/2.webp"
+                    >
+                        <img
+                            src="assets/images/gallery-content/chocolate-bars/2.webp"
+                            alt="chocolate-bars"
+                            width="100"
+                            height="100"
+                            loading="lazy"
+                        />
+                    </a>
+
+                    <a
+                        class="image-container"
+                        href="assets/images/gallery-content/chocolate-bars/3.webp"
+                    >
+                        <img
+                            src="assets/images/gallery-content/chocolate-bars/3.webp"
+                            alt="chocolate-bars"
+                            width="100"
+                            height="100"
+                            loading="lazy"
+                        />
+                    </a>
+
+                    <a
+                        class="image-container"
+                        href="assets/images/gallery-content/chocolate-bars/4.webp"
+                    >
+                        <img
+                            src="assets/images/gallery-content/chocolate-bars/4.webp"
+                            alt="chocolate-bars"
+                            width="100"
+                            height="100"
+                            loading="lazy"
+                        />
+                    </a>
+
+                    <a
+                        class="image-container"
+                        href="assets/images/gallery-content/chocolate-bars/5.webp"
+                    >
+                        <img
+                            src="assets/images/gallery-content/chocolate-bars/5.webp"
+                            alt="chocolate-bars"
+                            width="100"
+                            height="100"
+                            loading="lazy"
+                        />
+                    </a>
+
+                    <a
+                        class="image-container"
+                        href="assets/images/gallery-content/chocolate-bars/6.webp"
+                    >
+                        <img
+                            src="assets/images/gallery-content/chocolate-bars/6.webp"
+                            alt="chocolate-bars"
+                            width="100"
+                            height="100"
+                            loading="lazy"
+                        />
+                    </a>
+                </section>
+
+                <section class="content" id="choco-treats">
+                    <a
+                        class="image-container"
+                        href="assets/images/gallery-content/choco-treats/1.webp"
+                    >
+                        <img
+                            src="assets/images/gallery-content/choco-treats/1.webp"
+                            alt="choco-treats"
+                            width="100"
+                            height="100"
+                            loading="lazy"
+                        />
+                    </a>
+
+                    <a
+                        class="image-container"
+                        href="assets/images/gallery-content/choco-treats/2.webp"
+                    >
+                        <img
+                            src="assets/images/gallery-content/choco-treats/2.webp"
+                            alt="choco-treats"
+                            width="100"
+                            height="100"
+                            loading="lazy"
+                        />
+                    </a>
+
+                    <a
+                        class="image-container"
+                        href="assets/images/gallery-content/choco-treats/3.webp"
+                    >
+                        <img
+                            src="assets/images/gallery-content/choco-treats/3.webp"
+                            alt="choco-treats"
+                            width="100"
+                            height="100"
+                            loading="lazy"
+                        />
+                    </a>
+
+                    <a
+                        class="image-container"
+                        href="assets/images/gallery-content/choco-treats/4.webp"
+                    >
+                        <img
+                            src="assets/images/gallery-content/choco-treats/4.webp"
+                            alt="choco-treats"
+                            width="100"
+                            height="100"
+                            loading="lazy"
+                        />
+                    </a>
+
+                    <a
+                        class="image-container"
+                        href="assets/images/gallery-content/choco-treats/5.webp"
+                    >
+                        <img
+                            src="assets/images/gallery-content/choco-treats/5.webp"
+                            alt="choco-treats"
+                            width="100"
+                            height="100"
+                            loading="lazy"
+                        />
+                    </a>
+
+                    <a
+                        class="image-container"
+                        href="assets/images/gallery-content/choco-treats/6.webp"
+                    >
+                        <img
+                            src="assets/images/gallery-content/choco-treats/6.webp"
+                            alt="choco-treats"
+                            width="100"
+                            height="100"
+                            loading="lazy"
+                        />
+                    </a>
+                </section>
+            </div>
+        </main>
+
+        <footer>A fun gallery of overflowing sweets.</footer>
+    </body>
+</html>
